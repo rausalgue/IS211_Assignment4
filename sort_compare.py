@@ -113,7 +113,7 @@ def run_insertion_sort():
         duration = insertion_sort(generated_list[x])
 
         total_duration_10000 = total_duration_10000 + duration
-        print x, duration
+        #print x, duration
 
     average_10000 = total_duration_10000 / x
     print 'Average of 10,000', average_10000
@@ -214,14 +214,14 @@ def run_python_sort():
     return final_avg
 
 def main():
-    calc_seq = run_insertion_sort()
-    print 'Insertion Sort took {} seconds to run, on average'.format(round(calc_seq,7))
-
     calc_seq = run_shell_sort()
     print 'Shell Sort took {} seconds to run, on average'.format(round(calc_seq,7))
 
     calc_seq = run_python_sort()
     print 'Python Sort took {} seconds to run, on average'.format(round(calc_seq,7))
+
+    calc_seq = run_insertion_sort()
+    print 'Insertion Sort took {} seconds to run, on average'.format(round(calc_seq, 7))
 
 if __name__ == "__main__":
     main()
