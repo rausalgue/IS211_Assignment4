@@ -38,11 +38,41 @@ def insertion_sort(list):
     # print(duration)
     return duration
 
-def shell_sort():
-    print 'sort'
+def shell_sort(list):
+    start = time.time()
+    sublist_count = len(list) // 2
 
-def python_sort():
-    print 'sort'
+    while sublist_count > 0:
+        for start_position in range(sublist_count):
+            gap_insertion_sort(list, start_position, sublist_count)
+        #print("After increments of size", sublist_count, "The list is",list)
+
+        sublist_count = sublist_count // 2
+
+    stop = time.time()
+    duration = stop - start
+    # print(duration)
+    return duration
+
+def gap_insertion_sort(list, start, gap):
+    for i in range(start + gap, len(list), gap):
+        current_value = list[i]
+        position = i
+
+        while position >= gap and list[position - gap] > current_value:
+            list[position] = list[position - gap]
+            position = position - gap
+            list[position] = current_value
+
+def python_sort(list):
+    start = time.time()
+
+    list.sort()
+
+    stop = time.time()
+    duration = stop - start
+    # print(duration)
+    return duration
 
 def run_insertion_sort():
     generated_list = generate_lists(500)
@@ -91,14 +121,107 @@ def run_insertion_sort():
     final_avg = decimal.Decimal(average_500 + average_1000 + average_10000)
     return final_avg
 
+def run_shell_sort():
+    generated_list = generate_lists(500)
+
+    total_duration_500 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = shell_sort(generated_list[x])
+
+        total_duration_500 = total_duration_500 + duration
+        #print x, duration
+
+    average_500 = total_duration_500 / x
+    print 'Average of 500', average_500
+
+    generated_list = generate_lists(1000)
+
+    total_duration_1000 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = shell_sort(generated_list[x])
+
+        total_duration_1000 = total_duration_1000 + duration
+        # print x, duration
+
+    average_1000 = total_duration_1000 / x
+    print 'Average of 1,000', average_1000
+
+    generated_list = generate_lists(10000)
+
+    total_duration_10000 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = shell_sort(generated_list[x])
+
+        total_duration_10000 = total_duration_10000 + duration
+        # print x, duration
+
+    average_10000 = total_duration_10000 / x
+    print 'Average of 10,000', average_10000
+
+    final_avg = decimal.Decimal(average_500 + average_1000 + average_10000)
+    return final_avg
+
+def run_python_sort():
+    generated_list = generate_lists(500)
+
+    total_duration_500 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = python_sort(generated_list[x])
+
+        total_duration_500 = total_duration_500 + duration
+        # print x, duration
+
+    average_500 = total_duration_500 / x
+    print 'Average of 500', average_500
+
+    generated_list = generate_lists(1000)
+
+    total_duration_1000 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = python_sort(generated_list[x])
+
+        total_duration_1000 = total_duration_1000 + duration
+        # print x, duration
+
+    average_1000 = total_duration_1000 / x
+    print 'Average of 1,000', average_1000
+
+    generated_list = generate_lists(10000)
+
+    total_duration_10000 = 0
+    # pprint (generated_list)
+    for x in range(1, 101):
+        # print(generated_list[x])
+        duration = python_sort(generated_list[x])
+
+        total_duration_10000 = total_duration_10000 + duration
+        # print x, duration
+
+    average_10000 = total_duration_10000 / x
+    print 'Average of 10,000', average_10000
+
+    final_avg = decimal.Decimal(average_500 + average_1000 + average_10000)
+    return final_avg
 
 def main():
+    calc_seq = run_insertion_sort()
+    print 'Insertion Sort took {} seconds to run, on average'.format(round(calc_seq,7))
 
-    #calc_seq = run_insertion_sort()
-    print 'Insertion Sort Search took {} seconds to run, on average'.format(round(calc_seq,7))
+    calc_seq = run_shell_sort()
+    print 'Shell Sort took {} seconds to run, on average'.format(round(calc_seq,7))
 
-
-
+    calc_seq = run_python_sort()
+    print 'Python Sort took {} seconds to run, on average'.format(round(calc_seq,7))
 
 if __name__ == "__main__":
     main()
